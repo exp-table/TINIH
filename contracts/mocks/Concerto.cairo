@@ -35,7 +35,7 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 ##                CONSTS                   ##
 #############################################
 
-const COMPTROLLER = 0x0465dd1c3966cf725b35b183e3208949018ede33be08eccd6bae9cd32a3cd14e
+const COMPTROLLER = 0x0178f4dd48c04b7e37d0fb5e3d5c0b0ba8dd3c85d0c5cf6f7d5fe57a78ad83f2
 const TARGET = 100
 
 #############################################

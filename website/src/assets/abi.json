@@ -1,0 +1,31 @@
+[
+	{
+		"inputs": [
+			{
+				"name": "price",
+				"type": "felt"
+			}
+		],
+		"name": "sell",
+		"outputs": [],
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "reset",
+		"outputs": [],
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRate",
+		"outputs": [
+			{
+				"name": "newRate",
+				"type": "felt"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
