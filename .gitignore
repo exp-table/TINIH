@@ -1,7 +1,6 @@
 .DS_Store
 .temp/
 artifacts/
-*.deployments.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
