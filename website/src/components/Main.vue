@@ -6,6 +6,8 @@
     You need to have the ArgentX wallet installed as well as Metamask. It uses the Goerli network!
   </div> 
   <div v-if="userL2Address">
+    <p> Current spawn rate : {{this.rate}} </p>
+    <p> Attempts : {{this.attempts}} </p>
     <p><button @click="kill">Kill that monster!</button></p>
     <div v-if="hasItem == 2">
       <p>You got a magic axe! Sell it?</p>
@@ -41,6 +43,8 @@ export default {
       signer : undefined,
       hasItem : 0,
       contract : undefined,
+      rate: 0,
+      attempts : 0,
       inputs : {
         sellingPrice : undefined
       }
@@ -66,9 +70,14 @@ export default {
         entrypoint : "getRate",
         calldata : []
       });
-      const rate = parseInt(result.result[0]) / 2**61;
-      console.log(`Current rate is ${rate}`);
-      const success = Math.random() <= rate ? this.hasItem = 2 : this.hasItem = 1;
+      this.rate = parseInt(result.result[0]) / 2**61;;
+      if (Math.random() <= this.rate) {
+          this.hasItem = 2;
+          this.attempts = 0;
+      } else {
+          this.hasItem = 1;
+          this.attempts+=1;
+      }
     },
     async sell() {
       const tx = await this.contract.sell(this.inputs.sellingPrice);

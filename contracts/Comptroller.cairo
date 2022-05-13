@@ -32,7 +32,5 @@ func getRate{
     let (power,) = Math64x61_pow(ratio, FOUR_64X)
     let (exp,) = Math64x61_exp(-power)
     let (result,) = Math64x61_sub(ONE_64X, exp)
-    
     return (result)
-    
 end
