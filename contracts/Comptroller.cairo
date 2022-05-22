@@ -10,7 +10,6 @@ from utils.Math64x61 import Math64x61_exp, Math64x61_fromFelt, Math64x61_div, Ma
 #############################################
 
 const ONE_64X = Math64x61_FRACT_PART
-const FOUR_64X = 4 * Math64x61_FRACT_PART
 
 #############################################
 ##                VIEWS                    ##
@@ -25,11 +24,14 @@ func getRate{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*, 
     range_check_ptr
-}(target : felt, price : felt) -> (newRate : felt):
+}(k : felt, lambda : felt, target : felt, price : felt) -> (newRate : felt):
+    let (k_x64,) = Math64x61_fromFelt(k)
+    let (lambda_x64,) = Math64x61_fromFelt(lambda)
     let (target_x64,) = Math64x61_fromFelt(target)
     let (price_x64,) = Math64x61_fromFelt(price)
     let (ratio,) = Math64x61_div(price_x64, target_x64)
-    let (power,) = Math64x61_pow(ratio, FOUR_64X)
+    let (ratio2,) = Math64x61_div(ratio, lambda)
+    let (power,) = Math64x61_pow(ratio2, k)
     let (exp,) = Math64x61_exp(-power)
     let (result,) = Math64x61_sub(ONE_64X, exp)
     return (result)

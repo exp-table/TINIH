@@ -37,6 +37,8 @@ from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 const COMPTROLLER = 0x0178f4dd48c04b7e37d0fb5e3d5c0b0ba8dd3c85d0c5cf6f7d5fe57a78ad83f2
 const TARGET = 100
+const k = 4
+const lambda = 1
 
 #############################################
 ##                INTERFACES               ##
@@ -44,7 +46,7 @@ const TARGET = 100
 
 @contract_interface
 namespace IComptroller:
-    func getRate(target : felt, price : felt) -> (res : felt):
+    func getRate(k : felt, lambda : felt, target : felt, price : felt) -> (res : felt):
     end
 end
 
@@ -111,7 +113,7 @@ func _updateRate{
 }() -> ():
 
     let (currentPrice) = _currentAveragePrice.read()
-    let (tempRate) = IComptroller.getRate(contract_address=COMPTROLLER, target=TARGET, price=currentPrice)
+    let (tempRate) = IComptroller.getRate(contract_address=COMPTROLLER, k=k, lambda=lambda, target=TARGET, price=currentPrice)
     _rate.write(tempRate)
     return ()
     
